@@ -1,0 +1,15 @@
+<%@ WebService Language="C#" CodeBehind="Estadistica.asmx.cs" Class="HolaMundoWebS" %>
+
+
+using System.Web.Services;
+
+[WebService(
+    Namespace="http://www.elguille.info/NET/WebServices/",
+    Description="Hola, Mundo al estilo Web Service")]
+public class HolaMundoWebS {
+
+     [WebMethod(Description="Devuelve la cadena Hola, Mundo")]
+     public string Saludar() {
+        return "Hola, Mundo";
+     }
+}

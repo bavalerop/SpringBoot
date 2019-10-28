@@ -1,0 +1,9 @@
+en exe.config
+
+<configuration>
+<system.net>
+    <settings>
+      <servicePointManager checkCertificateName="false" checkCertificateRevocationList="true" />
+    </settings>
+  </system.net>
+</configuration>

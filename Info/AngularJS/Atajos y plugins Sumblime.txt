@@ -1,0 +1,30 @@
+***********************Plugin**********************
+*ColorPicker
+*ssas
+*Doc
+*Auto Filename
+*Emmet
+*DocBlockr
+*SublimeCodeIntel->completador de codigo
+*BracketHighlighter->Para abrir corchetes parentesis y etiquetas
+*Alignment->ctrl+alt+a->alinea las variables y el texto
+*jQuery
+*AngularJs
+*Git
+*Seti UI->Iconos
+*SublimeLinter
+*Babel->Javascript Actual
+*GhostTex->Actualiza en tiempo real
+*Sidebar Enhancement -> Mejora los atajos del click derecho
+*LiveReload ->Refresca el navegador apenas guardemos cambios
+*AdvancedNewFile->Para crear archivos y carptas desde el editor ejemplo (ctrl+alt+n y en la ventana escribe css/estilo.css)
+******************************Como usar Emmet***************************
+escribe la etiqueta o estructura y oprime ctrl+E para autocompletar
+* escribe . y presiona tab y crea un div con una class
+* .div>p>a ctrl+e crea las etiquetas con las internas
+* escribe div*3 ctrl+e crea 3 div
+* escribe ul>li*6>a ctrl+e para crear la estructura basica de un menu
+* escribe ! y presiona Tab crea estructura inicial de html (Guardar el archivo como html)
+* escribe div y presiona Tab completa el div o div*5 y tab
+*
+
