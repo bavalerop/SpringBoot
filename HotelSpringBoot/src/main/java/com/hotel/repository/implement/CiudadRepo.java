@@ -44,7 +44,7 @@ public class CiudadRepo implements ICiudadRepo {
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -56,13 +56,13 @@ public class CiudadRepo implements ICiudadRepo {
 	@Override
 	public void deleteInBatch(Iterable<CiudadEntity> entities) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAllInBatch() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -116,25 +116,25 @@ public class CiudadRepo implements ICiudadRepo {
 	@Override
 	public void deleteById(Integer id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void delete(CiudadEntity entity) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAll(Iterable<? extends CiudadEntity> entities) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

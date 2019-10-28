@@ -10,11 +10,10 @@ import com.hotel.entity.CiudadEntity;
 import com.hotel.repository.implement.CiudadRepo;
 import com.hotel.service.interfaces.ICiudadServ;
 
-
 @Service
 @Qualifier("JPA")
 public class CiudadServ implements ICiudadServ {
-	
+
 	@Autowired
 	@Qualifier("postgresql")
 	private CiudadRepo ciuRepo;

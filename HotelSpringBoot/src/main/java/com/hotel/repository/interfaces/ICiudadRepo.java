@@ -4,8 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hotel.entity.CiudadEntity;
 
-
-
-public interface ICiudadRepo extends JpaRepository<CiudadEntity, Integer>{
+public interface ICiudadRepo extends JpaRepository<CiudadEntity, Integer> {
 
 }

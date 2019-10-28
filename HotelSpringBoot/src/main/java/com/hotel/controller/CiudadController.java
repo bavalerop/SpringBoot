@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hotel.entity.CiudadEntity;
 import com.hotel.service.implement.CiudadServ;
 
-
-
 @RestController
 @RequestMapping("/api")
 public class CiudadController {
@@ -22,14 +20,13 @@ public class CiudadController {
 	@Autowired
 	@Qualifier("JPA")
 	private CiudadServ ciuServ;
-	
+
 	@PostMapping("/GuardarCiudad")
 	public ResponseEntity<?> create(@RequestBody CiudadEntity ciudad) throws Exception {
 		ciuServ.Guardar(ciudad);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
-	
-	
+
 	@GetMapping("/Ciudad")
 	public ResponseEntity<?> list() throws Exception {
 		List<CiudadEntity> listCiudades = ciuServ.Todos();
@@ -43,5 +40,5 @@ public class CiudadController {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}
 	}
-	
+
 }
