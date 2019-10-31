@@ -1,0 +1,10 @@
+package com.hotel.repository.interfaces;
+
+import org.springframework.data.repository.NoRepositoryBean;
+
+@NoRepositoryBean
+public interface ICiudadRepo {
+	
+	public void Calcular(int a);
+
+}

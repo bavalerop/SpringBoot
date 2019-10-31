@@ -1,0 +1,65 @@
+****************************Definiciones*************************************
+Directives - HTML con super poderes
+Controllers - Contiene la logica de la app via $scope
+Factories y Services - Organiza y comparte codigo en tu app
+Filters - Dan formato a tus datos cuando son presentados
+*****************************************************************************
+*****************************Directivas****************************
+ng-app-->contiene una aplicacion de angular en los hijos se debe ejecutar como dice angual (probar operador de {{"Hola" + "Mundo"}})
+agregarla en la etiqueta <html>
+
+*****************************Controller****************************
+ng-controller->invoca el controlador en alguna etiqueta para
+usar las variables de la funcion scope
+
+$scope -> enlaza nuestro codigo con MVVM vista modelo tenemos los
+objetos o variables de nuestro controlador con la vista
+
+*****************************Modules****************************
+Modules->var app = angular.module("NOMBRE DEL MODULO",[]);
+ademas podemos importar en los [] los modulos de angular como ngResources(Consumir apis restfull), para importar mas modulos agregamos mas elementos al arreglo
+
+*****************************Metodos****************************
+Metodos->app.controller("Nombre del metodo", function($scope){
+	$scope.nombre = "Brayan";
+});
+ Tambien se pueden crear llamadas concatenadas ejemplo
+
+ angular.module("MyFirstApp",[]).controller("FirstController", function($scope){
+	$scope.nombre = "Brayan";
+});
+
+Referenciar el modulo con un parametro es para invocar el modulo en diferentes archivos crear metodo en el html referenciando el modulo
+
+Modular aplicacion (Crear modulos de login para usar o invocar en diferentes apps)
+
+***********************Data binding y ng-model*********************
+Sincronizar variables tanto desde el modelo a la vista y la vista al model
+
+*******************Sincronizar vista con model*********************
+con la directiva ng-model podemos cargar el valor de la variable a la vista en este caso con un texbox
+<input type="text" ng-model="nombre">
+lo importante es que si el valor cambia en la vista automaticamente cambia en el controlador del modelo
+
+se crea una funcion en el scope para agregar con un push a un array de una variable del scope y es llamada en un boton y los datos en la nueva varible por ng-model
+ 
+ y lo mostramos en un ng-repeat
+
+*****No permitir que se cambie el valor de las dependencias********
+Al comprimir el javascript una de las cosas que sucede es que se cambian los nombres de las variables, por ende se dañan las dependencias para ello cambiamos la estructura del controlador de la siguiente manera
+app.controller('name', ['', function(){
+	
+}])
+
+
+*******************Ajax Http*********************
+Para realizar las peticiones de pruebas vamos a usar
+la pagina jsonplaceholder.typicode.com/posts
+con esto simularemos llamadas a nuestros servicios web
+.get("http://jsonplaceholder.typicode.com/posts")
+	.then(function(datos){ 
+		console.log(datos)
+	}, function(error){ 
+
+
+	});

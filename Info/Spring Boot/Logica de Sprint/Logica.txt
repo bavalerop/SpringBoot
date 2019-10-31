@@ -1,0 +1,18 @@
+***************************INYECCION DE DEPENDENCIAS********************
+*Patron de diseño de software
+* Sub Tipo de inversion de control
+* Para tener codigo desacoplado
+* Provee a los objetos lo que necesita
+* Ejemplos:
+	* Constructor
+	* Propiedad (Set)
+	* Servicio/Interfaz
+******************************Spring Core Container*********************
+* Crearlos
+* Enlazarlos
+* Configurarlos
+* Destruirlos
+* (Beans)
+* Objects POJOS llamar el container 
+para usar el o manejar el ciclo de vida del objeto
+************************************************************************

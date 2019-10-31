@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.hotel.repository.implement.CiudadRepo"/>
+<fullyQualifiedTypeName name="com.hotel.service.implement.CiudadServ"/>
+<fullyQualifiedTypeName name="org.springframework.data.repository.NoRepositoryBean"/>
+<fullyQualifiedTypeName name="org.springframework.data.jpa.repository.support.SimpleJpaRepository"/>
+<fullyQualifiedTypeName name="com.hotel.repository.interfaces.ICiudadRepo"/>
+<fullyQualifiedTypeName name="com.hotel.service.interfaces.ICiudadServ"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyFirstApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Hola Json</title>
+	<script type="text/javascript" src="../../AngularLib/angular.min.js"></script>
+	<script type="text/javascript" src="Controller.js"></script>
+</head>
+<body ng-controller="MyFirstController">
+	<ul>
+		<li ng-repeat="data in posts">
+			<h2>{{data.title}}+ "hola"</h2>
+			<p>{{data.body}}</p>
+		</li>
+	</ul>
+</body>
+</html>
+
+
+   <span class="icheck-inline">
+                                <input type="radio" name="radio_demo_inline" id="radio_demo_inline_8" icheck ng-model="vm.grafica" value="Diario"   />
+                                <label for="radio_demo_inline_8" class="inline-label">Diario</label>
+                            </span>
+                            <span class="icheck-inline">
+                                <input type="radio" name="radio_demo_inline" id="radio_demo_inline_9" icheck ng-model="vm.grafica" value="mediano" />
+                                <label for="radio_demo_inline_9" class="inline-label">Horas de Anterioridad</label>
+                            </span>
