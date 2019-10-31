@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.hotel.entity.CiudadEntity;
-import com.hotel.service.implement.CiudadServ;
+import com.hotel.service.interfaces.ICiudadServ;
 
 @RestController
 @RequestMapping("/api")
 public class CiudadController {
 
 	@Autowired
-	@Qualifier("JPA")
-	private CiudadServ ciuServ;
+	private ICiudadServ ciuServ;
 
 	@PostMapping("/GuardarCiudad")
 	public ResponseEntity<?> create(@RequestBody CiudadEntity ciudad) throws Exception {
@@ -30,6 +29,20 @@ public class CiudadController {
 	@GetMapping("/Ciudad")
 	public ResponseEntity<?> list() throws Exception {
 		List<CiudadEntity> listCiudades = ciuServ.Todos();
+		if (listCiudades != null) {
+			if (listCiudades.size() > 0) {
+				return new ResponseEntity<>(listCiudades, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+			}
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@GetMapping("/Ciudad/?{name}")
+	public ResponseEntity<?> findbyname(@RequestBody String name)  throws Exception {
+		List<CiudadEntity> listCiudades = ciuServ.BuscarNombre(name);
 		if (listCiudades != null) {
 			if (listCiudades.size() > 0) {
 				return new ResponseEntity<>(listCiudades, HttpStatus.OK);

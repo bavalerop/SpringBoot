@@ -9,4 +9,7 @@ public interface ICiudadServ {
 	public List<CiudadEntity> Todos();
 
 	public void Guardar(CiudadEntity ciudad);
+	
+	public List<CiudadEntity> BuscarNombre(String name);
+		
 }
