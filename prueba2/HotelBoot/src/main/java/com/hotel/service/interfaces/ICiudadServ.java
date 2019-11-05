@@ -7,8 +7,8 @@ import com.hotel.entity.CiudadEntity;
 public interface ICiudadServ {
 
 	public List<CiudadEntity> Todos();
-	
+
 	public void Guardar(CiudadEntity ciudad);
 	
-	public void Calc(int buenas);
+	public List<CiudadEntity> BuscarNombre(String name);
 }

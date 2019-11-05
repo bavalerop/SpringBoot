@@ -5,7 +5,6 @@ import java.util.List;
 import com.hotel.entity.CiudadEntity;
 
 public interface ICiudadRepoCustom {
-	
-	public List<CiudadEntity> BuscarByName(String name);
 
+	public List<CiudadEntity> BuscarByName(String name);
 }

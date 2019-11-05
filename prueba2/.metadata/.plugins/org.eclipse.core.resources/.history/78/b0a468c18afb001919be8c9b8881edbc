@@ -1,9 +1,0 @@
-package com.hotel.repository.interfaces;
-
-
-
-public interface ICiudadRepo{
-	
-	public void Calcular(int a);
-
-}

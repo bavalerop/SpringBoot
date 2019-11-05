@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\brian\OneDrive\Escritorio\SpringBoot\prueba2\HotelBoot"/>
+		<item value="C:\Users\brian\OneDrive\Escritorio\SpringBoot\HotelSpringBoot"/>
+		<item value="C:\Users\brian\OneDrive\Escritorio\SpringBoot\HotelSpring"/>
+		<item value="C:\Users\brian\OneDrive\Escritorio\prueba1"/>
 		<item value="C:\Users\brian\OneDrive\Escritorio\SpringBoot\backend"/>
 		<item value="C:\Users\brian\OneDrive\Escritorio\SpringBoot\CursoSpring"/>
 	</list>
