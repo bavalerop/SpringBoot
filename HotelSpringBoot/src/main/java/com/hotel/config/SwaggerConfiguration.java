@@ -28,7 +28,7 @@ public class SwaggerConfiguration {
 	 private ApiInfo apiEndPointsInfo() {
 	        return new ApiInfoBuilder().title("Spring Boot REST API Hoteles")
 	            .description("Hoteles prueba REST API")
-	            .contact(new Contact("Ramesh Fadatare", "www.javaguides.net", "ramesh24fadatare@gmail.com"))
+	            .contact(new Contact("Brayan Valero", "https://www.facebook.com/brayanandres.valeropinzon", "bavalerop@gmail.com"))
 	            .license("Apache 2.0")
 	            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
 	            .version("1.0.0")

@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.hotel.entity.CiudadEntity;
-import com.hotel.service.interfaces.ICiudadServ;
+import com.hotel.service.CiudadService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -23,7 +24,7 @@ import io.swagger.annotations.ApiParam;
 public class CiudadController {
 	
 	@Autowired
-	private ICiudadServ ciuServ;
+	private CiudadService ciuServ;
 	
 	@ApiOperation(value = "Guarda una ciudad", response = List.class)
 	@PostMapping("/GuardarCiudad")
@@ -49,6 +50,7 @@ public class CiudadController {
 	}
 	
 	@ApiOperation(value = "Muestra la ciudad a buscar por nombre", response = List.class)
+	@ApiResponse(code = 204, message = "No se encontraron resultados", response = Object.class)
 	@GetMapping("/Ciudad/{name}")
 	public ResponseEntity<?> findByName(
 			@ApiParam(value = "Nombre de la ciudad a buscar", required = true)
