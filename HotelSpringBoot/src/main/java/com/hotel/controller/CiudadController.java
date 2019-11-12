@@ -1,6 +1,9 @@
 package com.hotel.controller;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.hotel.entity.CiudadEntity;
 import com.hotel.service.CiudadService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,7 +30,8 @@ public class CiudadController {
 	
 	@ApiOperation(value = "Guarda una ciudad", response = List.class)
 	@PostMapping("/GuardarCiudad")
-	public ResponseEntity<?> create(@RequestBody CiudadEntity ciudad) throws Exception {
+	public ResponseEntity<?> create(
+			@ApiParam(value = "Ciudad a guardar", required = true) @Valid @RequestBody CiudadEntity ciudad) throws Exception {
 		ciuServ.Guardar(ciudad);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
@@ -54,7 +57,8 @@ public class CiudadController {
 	@GetMapping("/Ciudad/{name}")
 	public ResponseEntity<?> findByName(
 			@ApiParam(value = "Nombre de la ciudad a buscar", required = true)
-			@PathVariable("name") String ciu_name)  throws Exception {
+			@PathVariable("name") String ciu_name
+			)  throws Exception {
 		List<CiudadEntity> listCiudades = ciuServ.BuscarNombre(ciu_name);
 		if (listCiudades != null) {
 			if (listCiudades.size() > 0) {

@@ -2,23 +2,22 @@ package com.hotel.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name = "ciudad")
-
 @ApiModel(description = "Tabla de las ciudades para los hoteles")
 public class CiudadEntity {
 	
-	@Id
-	@Column(name = "ciu_id", updatable = false, nullable = false, columnDefinition = "int")
+
 	@ApiModelProperty(notes = "ID de los registros de la tabla de ciudades no recibe null")
 	private int id;
-	@Column(name = "ciu_nom", nullable = false, columnDefinition = "VARCHAR(50)")
+	
 	@ApiModelProperty(notes = "Nombre de los registros de la tabla de ciudades no recibe null")
 	private String nombre;
 	
@@ -33,6 +32,9 @@ public class CiudadEntity {
 	}
 	
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ciu_id", updatable = false, nullable = false, columnDefinition = "int")
 	public int getId() {
 		return id;
 	}
@@ -41,6 +43,7 @@ public class CiudadEntity {
 		this.id = id;
 	}
 	
+	@Column(name = "ciu_nom", nullable = false, columnDefinition = "VARCHAR(50)")
 	public String getNombre() {
 		return nombre;
 	}

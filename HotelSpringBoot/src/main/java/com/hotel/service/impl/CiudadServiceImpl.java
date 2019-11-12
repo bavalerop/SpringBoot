@@ -3,19 +3,23 @@ package com.hotel.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-//import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
 import com.hotel.entity.CiudadEntity;
-import com.hotel.repository.CiudadRepository;
+import com.hotel.repository.CiudadRepoCustom;
+import com.hotel.repository.CiudadRepo;
 import com.hotel.service.CiudadService;
 
 @Service
 public class CiudadServiceImpl implements CiudadService{
 	
+	//Metodos Propios (Segun lenguaje)
 	@Autowired
-	private CiudadRepository ciuRepo;
+	@Qualifier("PSQL")
+	private CiudadRepoCustom ciuCustom;
+	//Metodos JPA
+	@Autowired
+	private CiudadRepo ciuRepo;
 	
 	@Override
 	public List<CiudadEntity> Todos() {
@@ -29,6 +33,6 @@ public class CiudadServiceImpl implements CiudadService{
 
 	@Override
 	public List<CiudadEntity> BuscarNombre(String name) {
-		return (List<CiudadEntity>) ciuRepo.BuscarByName(name);
+		return (List<CiudadEntity>) ciuCustom.BuscarByName(name);
 	}
 }
