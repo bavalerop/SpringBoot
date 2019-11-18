@@ -8,8 +8,12 @@ public interface CiudadService {
 	
 	public List<CiudadEntity> Todos();
 
-	public void Guardar(CiudadEntity ciudad);
+	public void Guardar(List<CiudadEntity> ciudad);
 	
 	public List<CiudadEntity> BuscarNombre(String name);
+	
+	public List<CiudadEntity> BuscarId(int id);
+	
+	
 
 }

@@ -22,7 +22,8 @@ public class SwaggerConfiguration {
 	            .apis(RequestHandlerSelectors
 	                .basePackage("com.hotel.controller"))
 	            .paths(PathSelectors.regex("/.*"))
-	            .build().apiInfo(apiEndPointsInfo());
+	            .build().apiInfo(apiEndPointsInfo())
+            .directModelSubstitute(Object.class, java.lang.Void.class); 
 	 }
 	 
 	 private ApiInfo apiEndPointsInfo() {

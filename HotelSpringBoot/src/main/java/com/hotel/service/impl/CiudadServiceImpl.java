@@ -1,5 +1,6 @@
 package com.hotel.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,19 @@ public class CiudadServiceImpl implements CiudadService{
 	}
 
 	@Override
-	public void Guardar(CiudadEntity ciudad) {
-		ciuRepo.save(ciudad);
+	public void Guardar(List<CiudadEntity> ciudades) {
+		ciuRepo.saveAll(ciudades);
 	}
 
 	@Override
 	public List<CiudadEntity> BuscarNombre(String name) {
 		return (List<CiudadEntity>) ciuCustom.BuscarByName(name);
+	}
+
+	@Override
+	public List<CiudadEntity> BuscarId(int id) {
+		List<CiudadEntity> lista = new ArrayList<CiudadEntity>();
+		lista.add(ciuRepo.getOne(id));
+		return lista;
 	}
 }

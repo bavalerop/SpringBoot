@@ -34,7 +34,7 @@ public class CiudadEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ciu_id", updatable = false, nullable = false, columnDefinition = "int")
+	@Column(name = "ciu_id", updatable = false, nullable = false, columnDefinition = "int", unique=true)
 	public int getId() {
 		return id;
 	}
@@ -54,7 +54,7 @@ public class CiudadEntity {
 
 	@Override
 	public String toString() {
-		return "CiudadEntity [id=" + id + ", nombre=" + nombre + "]";
+		return "CiudadEntity [nombre=" + nombre + "]";
 	}
 
 }
