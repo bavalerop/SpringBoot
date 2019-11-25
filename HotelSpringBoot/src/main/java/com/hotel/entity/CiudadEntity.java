@@ -6,16 +6,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 
 @Entity
 @Table(name = "ciudad")
 @ApiModel(description = "Tabla de las ciudades para los hoteles")
 public class CiudadEntity {
 	
-
-	@ApiModelProperty(notes = "ID de los registros de la tabla de ciudades no recibe null")
+	
+	@ApiModelProperty(notes = "ID de los registros de la tabla de ciudades no recibe null", readOnly = true)
 	private int id;
 	
 	@ApiModelProperty(notes = "Nombre de los registros de la tabla de ciudades no recibe null")
@@ -34,7 +36,7 @@ public class CiudadEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ciu_id", updatable = false, nullable = false, columnDefinition = "int", unique=true)
+	@Column(name = "ciu_id", columnDefinition = "int", unique=true)
 	public int getId() {
 		return id;
 	}
