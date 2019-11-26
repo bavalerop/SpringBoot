@@ -21,6 +21,7 @@ public class CiudadServiceImpl implements CiudadService{
 	//Metodos JPA
 	@Autowired
 	private CiudadRepo ciuRepo;
+
 	
 	@Override
 	public List<CiudadEntity> Todos() {
@@ -29,6 +30,9 @@ public class CiudadServiceImpl implements CiudadService{
 
 	@Override
 	public void Guardar(List<CiudadEntity> ciudades) {
+		ciudades.stream().forEach((ciu)-> {
+			ciu.setId(0);
+		});
 		ciuRepo.saveAll(ciudades);
 	}
 
@@ -40,7 +44,32 @@ public class CiudadServiceImpl implements CiudadService{
 	@Override
 	public List<CiudadEntity> BuscarId(int id) {
 		List<CiudadEntity> lista = new ArrayList<CiudadEntity>();
-		lista.add(ciuRepo.getOne(id));
+		try {
+			lista.add(ciuRepo.findById(id).get());
+		}catch(Exception e ) {
+			return lista;
+		}
 		return lista;
+	}
+	
+
+	@Override
+	public int Actualizar(CiudadEntity ciudad) {
+		int res=0;
+		if(ciuRepo.findById(ciudad.getId()).isPresent()) {
+			ciuRepo.save(ciudad);
+			res = 1;
+		}
+		return res;
+	}
+
+	@Override
+	public int Borrar(int id) {
+		int res=0;
+		if(ciuRepo.findById(id).isPresent()) {
+			ciuRepo.deleteById(id);
+			res = 1;
+		}
+		return res;
 	}
 }

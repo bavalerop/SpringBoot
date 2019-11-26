@@ -10,10 +10,12 @@ public interface CiudadService {
 
 	public void Guardar(List<CiudadEntity> ciudad);
 	
+	public int Actualizar(CiudadEntity ciudad);
+	
 	public List<CiudadEntity> BuscarNombre(String name);
 	
 	public List<CiudadEntity> BuscarId(int id);
 	
+	public int Borrar(int id);
 	
-
 }

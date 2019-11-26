@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class CiudadEntity {
 	
 	
-	@ApiModelProperty(notes = "ID de los registros de la tabla de ciudades no recibe null", readOnly = true)
+	@ApiModelProperty(notes = "ID de los registros de la tabla de ciudades no recibe null")
 	private int id;
 	
 	@ApiModelProperty(notes = "Nombre de los registros de la tabla de ciudades no recibe null")

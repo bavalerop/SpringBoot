@@ -1,8 +1,12 @@
 package com.hotel.repository.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -23,11 +27,12 @@ public class CiudadRepoImplPSQL implements CiudadRepoCustom {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CiudadEntity> BuscarByName(String name) {
-		List<CiudadEntity> ciudades = entityManager.createNativeQuery("SELECT * FROM ciudad WHERE ciu_nom LIKE :nombre", CiudadEntity.class)
-	    .setParameter("nombre", "'%"+name+"%'")
-	    .getResultList();
-		Log.info("psql "+name+"-->"+ciudades.toString());
-		return ciudades;
+		List<CiudadEntity> lista = new ArrayList<CiudadEntity>();
+		Query q = entityManager.createNativeQuery("SELECT * FROM ciudad WHERE ciu_nom LIKE :nombre", CiudadEntity.class);
+	    q.setParameter("nombre", name);
+	    lista=q.getResultList();
+		Log.info("");
+		return lista;
 	}
 
 }
