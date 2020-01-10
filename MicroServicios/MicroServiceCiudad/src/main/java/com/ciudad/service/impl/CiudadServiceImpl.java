@@ -1,37 +1,38 @@
-package com.hotel.service.impl;
+package com.ciudad.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import com.hotel.entity.CiudadEntity;
-import com.hotel.repository.CiudadRepoCustom;
-import com.hotel.repository.CiudadRepo;
-import com.hotel.service.CiudadService;
+import com.ciudad.entity.CiudadEntity;
+import com.ciudad.repository.ICiudadRepoCustom;
+import com.ciudad.service.ICiudadService;
+import com.ciudad.repository.ICiudadRepo;
+
 
 @Service
-public class CiudadServiceImpl implements CiudadService{
+public class CiudadServiceImpl implements ICiudadService{
 	
 	//Metodos Propios (Segun lenguaje)
 	@Autowired
 	@Qualifier("PSQL")
-	private CiudadRepoCustom ciuCustom;
+	private ICiudadRepoCustom ciuCustom;
 	//Metodos JPA
 	@Autowired
-	private CiudadRepo ciuRepo;
-
+	private ICiudadRepo ciuRepo;
 	
 	@Override
 	public List<CiudadEntity> Todos() {
 		return (List<CiudadEntity>) ciuRepo.findAll();
 	}
-
+	
 	@Override
 	public void Guardar(List<CiudadEntity> ciudades) {
-		ciudades.stream().forEach((ciu)-> {
-			ciu.setId(0);
+		ciudades.forEach(ciu -> {
+		    ciu.setId(ciuCustom.idSig());
 		});
+		//ciuCustom.Logg(ciudades.toString());
 		ciuRepo.saveAll(ciudades);
 	}
 
@@ -53,13 +54,20 @@ public class CiudadServiceImpl implements CiudadService{
 	
 
 	@Override
-	public int Actualizar(CiudadEntity ciudad) {
-		int res=0;
-		if(ciuRepo.findById(ciudad.getId()).isPresent()) {
-			ciuRepo.save(ciudad);
-			res = 1;
+	public List<CiudadEntity> Actualizar(List<CiudadEntity> ciudad) {
+		List<CiudadEntity> lista = new ArrayList<CiudadEntity>();
+		
+		try {
+			ciudad.forEach(ciu -> {
+				if(ciuRepo.findById(ciu.getId()).isPresent()) {
+					ciuRepo.save(ciu);
+					lista.add(ciu); 
+				} 
+			});
+		}catch(Exception e ) {
+			return lista;
 		}
-		return res;
+		return lista;
 	}
 
 	@Override
@@ -71,4 +79,11 @@ public class CiudadServiceImpl implements CiudadService{
 		}
 		return res;
 	}
+
+	@Override
+	public void Logg(String data) {
+		ciuCustom.Logg(data);
+		
+	}
+
 }

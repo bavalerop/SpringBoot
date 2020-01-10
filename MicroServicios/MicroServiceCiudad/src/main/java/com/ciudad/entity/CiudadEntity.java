@@ -1,25 +1,21 @@
-package com.hotel.entity;
+package com.ciudad.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "ciudad")
-@ApiModel(description = "Tabla de las ciudades para los hoteles")
 public class CiudadEntity {
 	
-	
-	@ApiModelProperty(notes = "ID de los registros de la tabla de ciudades no recibe null")
+	@Schema(description = "ID de los registros de la tabla de ciudades no recibe null", 
+	example = "1", required = true)
 	private int id;
 	
-	@ApiModelProperty(notes = "Nombre de los registros de la tabla de ciudades no recibe null")
+	@Schema(description = "Nombre de los registros de la tabla de ciudades no recibe null", 
+	example = "Bogota", required = true)
 	private String nombre;
 	
 	public CiudadEntity() {
@@ -34,7 +30,6 @@ public class CiudadEntity {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ciu_id", columnDefinition = "int", unique=true)
 	public int getId() {
 		return id;
@@ -55,7 +50,7 @@ public class CiudadEntity {
 
 	@Override
 	public String toString() {
-		return "CiudadEntity [nombre=" + nombre + "]";
+		return "{id=" + id  + ", nombre=" + nombre + "}";
 	}
 
 }
