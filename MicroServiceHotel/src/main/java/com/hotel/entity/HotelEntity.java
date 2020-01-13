@@ -31,9 +31,9 @@ public class HotelEntity {
 	example = "8", required = true)
 	private int numHab;
 	
-	private CiudadModel ciudad;	
+	private CiudadEntity ciudad;	
 
-	public HotelEntity(int id, String nombre, int ciu_id, String direccion, int numHab, CiudadModel ciudad) {
+	public HotelEntity(int id, String nombre, int ciu_id, String direccion, int numHab, CiudadEntity ciudad) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -69,17 +69,6 @@ public class HotelEntity {
 		this.nombre = nombre;
 	}
 
-	@Column
-	@ElementCollection(targetClass=CiudadModel.class)
-	public int getCiu_id() {
-		return ciu_id;
-	}
-
-
-	public void setCiu_id(int ciu_id) {
-		this.ciu_id = ciu_id;
-	}
-
 
 	@Column(name = "hot_dir", nullable = false, columnDefinition = "VARCHAR(80)")
 	public String getDireccion() {
@@ -101,13 +90,14 @@ public class HotelEntity {
 		this.numHab = numHab;
 	}
 
-
-	public CiudadModel getCiudad() {
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+	public CiudadEntity getCiudad() {
 		return ciudad;
 	}
 
 
-	public void setCiudad(CiudadModel ciudad) {
+	public void setCiudad(CiudadEntity ciudad) {
 		this.ciudad = ciudad;
 	}
 

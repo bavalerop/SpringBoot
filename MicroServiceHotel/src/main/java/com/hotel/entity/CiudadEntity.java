@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "ciudad")
-public class CiudadModel {
+public class CiudadEntity {
 	
 	@Schema(description = "ID de los registros de la tabla de ciudades no recibe null", 
 	example = "1", required = true)
@@ -18,12 +18,12 @@ public class CiudadModel {
 	example = "Bogota", required = true)
 	private String nombre;
 	
-	public CiudadModel() {
+	public CiudadEntity() {
 		this.id = 0;
 		this.nombre = "";
 	}
 	
-	public CiudadModel(int id, String nombre) {
+	public CiudadEntity(int id, String nombre) {
 		this.id = id;
 		this.nombre = nombre;
 	}

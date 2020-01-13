@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.hotel.entity.CiudadModel;
+import com.hotel.entity.CiudadEntity;
 import com.hotel.entity.HotelEntity;
 import com.hotel.repository.IHotelRepoCustom;
 import com.hotel.service.IHotelService;
@@ -30,12 +30,7 @@ public class HotelServiceImpl implements IHotelService{
 	
 	@Override
 	public List<HotelEntity> Todos() {
-		List<HotelEntity> lista = new ArrayList<HotelEntity>();
-		hotRepo.findAll().stream().forEach((h) -> {
-			h.setCiudad(Rest.getForObject("http://localhost:8082/CiudadById/" + h.getCiu_id(), CiudadModel.class));
-			lista.add(h);
-		});
-		return lista;
+		return (List<HotelEntity>) hotRepo.findAll();
 	}
 	
 	@Override
@@ -59,7 +54,7 @@ public class HotelServiceImpl implements IHotelService{
 	public List<HotelEntity> BuscarNombre(String name) {
 		List<HotelEntity> lista = new ArrayList<HotelEntity>();
 		hotCustom.BuscarByName(name).stream().forEach((h) -> {
-			h.setCiudad(Rest.getForObject("http://localhost:8082/CiudadById/" + h.getCiu_id(), CiudadModel.class));
+			h.setCiudad(Rest.getForObject("http://localhost:8082/CiudadById/" + h.getCiudad().getId(), CiudadEntity.class));
 			lista.add(h);
 		});
 		return lista;
@@ -69,11 +64,11 @@ public class HotelServiceImpl implements IHotelService{
 	public List<HotelEntity> BuscarId(int id) {
 		
 		List<HotelEntity> lista = new ArrayList<HotelEntity>();
-		CiudadModel ciu = new CiudadModel();
+		CiudadEntity ciu = new CiudadEntity();
 		HotelEntity h = new HotelEntity();
 		
 		try {
-			ciu = Rest.getForObject("http://localhost:8082/CiudadById/" + hotRepo.findById(id).get().getCiu_id(), CiudadModel.class);
+			ciu = Rest.getForObject("http://localhost:8082/CiudadById/" + hotRepo.findById(id).get().getCiudad().getId(), CiudadEntity.class);
 			h = hotRepo.findById(id).get();
 			h.setCiudad(ciu);
 			lista.add(h);
