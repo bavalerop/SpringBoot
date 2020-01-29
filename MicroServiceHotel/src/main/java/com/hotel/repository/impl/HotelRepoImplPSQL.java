@@ -29,6 +29,18 @@ public class HotelRepoImplPSQL implements IHotelRepoCustom{
 		return lista;
 	}
 	
+	@Override
+	public int idSig() {
+		int res = 0;
+		Query q = entityManager.createNativeQuery("SELECT max(hot_nit) FROM hotel");
+	    res=Integer.parseInt(q.getResultList().get(0).toString());
+		//Log.info("-->:"+res);
+		if(res>0) {
+			res++;
+		}
+		return res;
+	}
+	
 	public void Logg(String data) {
 		Log.info("---> "+data+" <----");
 	}

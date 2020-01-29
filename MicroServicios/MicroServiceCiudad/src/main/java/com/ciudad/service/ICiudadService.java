@@ -7,13 +7,15 @@ public interface ICiudadService {
 	
 	public List<CiudadEntity> Todos();
 
-	public void Guardar(List<CiudadEntity> ciudad);
+	public List<CiudadEntity> GuardarBloque(List<CiudadEntity> ciudades);
 	
-	public List<CiudadEntity> Actualizar(List<CiudadEntity> ciudad);
+	public CiudadEntity Guardar(CiudadEntity ciudad);
+	
+	public CiudadEntity Actualizar(CiudadEntity ciudad);
 	
 	public List<CiudadEntity> BuscarNombre(String name);
 	
-	public List<CiudadEntity> BuscarId(int id);
+	public CiudadEntity BuscarId(int id);
 	
 	public int Borrar(int id);
 	

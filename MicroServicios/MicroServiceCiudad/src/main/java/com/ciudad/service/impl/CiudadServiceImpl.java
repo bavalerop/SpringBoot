@@ -1,6 +1,5 @@
 package com.ciudad.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,12 +27,20 @@ public class CiudadServiceImpl implements ICiudadService{
 	}
 	
 	@Override
-	public void Guardar(List<CiudadEntity> ciudades) {
-		ciudades.forEach(ciu -> {
-		    ciu.setId(ciuCustom.idSig());
-		});
-		//ciuCustom.Logg(ciudades.toString());
-		ciuRepo.saveAll(ciudades);
+	public List<CiudadEntity> GuardarBloque(List<CiudadEntity> ciudades) {
+//		return ciudades.stream().forEach(ciu -> {
+//		    ciu.setId(ciuCustom.idSig());
+//		    ciuRepo.save(ciu);
+//		});
+		return null;
+		//ciuCustom.Logg(ciudades.toString()); 
+	}
+
+	@Override
+	public CiudadEntity Guardar(CiudadEntity ciudad) {
+		ciudad.setId(ciuCustom.idSig());
+		ciuRepo.save(ciudad);
+		return ciudad;
 	}
 
 	@Override
@@ -42,32 +49,27 @@ public class CiudadServiceImpl implements ICiudadService{
 	}
 
 	@Override
-	public List<CiudadEntity> BuscarId(int id) {
-		List<CiudadEntity> lista = new ArrayList<CiudadEntity>();
+	public CiudadEntity BuscarId(int id) {
 		try {
-			lista.add(ciuRepo.findById(id).get());
+			return ciuRepo.findById(id).get();
 		}catch(Exception e ) {
-			return lista;
+			return null;
 		}
-		return lista;
 	}
 	
 
 	@Override
-	public List<CiudadEntity> Actualizar(List<CiudadEntity> ciudad) {
-		List<CiudadEntity> lista = new ArrayList<CiudadEntity>();
-		
+	public CiudadEntity Actualizar(CiudadEntity ciudad) {
 		try {
-			ciudad.forEach(ciu -> {
-				if(ciuRepo.findById(ciu.getId()).isPresent()) {
-					ciuRepo.save(ciu);
-					lista.add(ciu); 
-				} 
-			});
-		}catch(Exception e ) {
-			return lista;
+			if(ciuRepo.findById(ciudad.getId()).isPresent()) {
+				ciuRepo.save(ciudad);
+				return ciudad;
+			}else {
+				return null;
+			} 
+		}catch(Exception e) {
+			return null;
 		}
-		return lista;
 	}
 
 	@Override
@@ -85,5 +87,4 @@ public class CiudadServiceImpl implements ICiudadService{
 		ciuCustom.Logg(data);
 		
 	}
-
 }

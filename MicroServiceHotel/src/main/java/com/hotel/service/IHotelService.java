@@ -6,15 +6,17 @@ import com.hotel.entity.HotelEntity;
 
 public interface IHotelService {
 	
-	public List<HotelEntity> Todos();
+	public List<HotelEntity> Todos() throws Exception;
 
-	public List<HotelEntity> Guardar(List<HotelEntity> hotel);
+	public List<HotelEntity> GuardarBloque(List<HotelEntity> hoteles);
 	
-	public List<HotelEntity> Actualizar(List<HotelEntity> hotel);
+	public HotelEntity Guardar(HotelEntity hotel);
+	
+	public HotelEntity Actualizar(HotelEntity hotel);
 	
 	public List<HotelEntity> BuscarNombre(String name);
 	
-	public List<HotelEntity> BuscarId(int id);
+	public HotelEntity BuscarId(int id);
 	
 	public int Borrar(int id);
 	

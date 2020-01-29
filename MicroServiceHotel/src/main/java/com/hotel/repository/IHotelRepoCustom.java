@@ -8,6 +8,8 @@ public interface IHotelRepoCustom {
 
 	public List<HotelEntity> BuscarByName(String name);
 	
+	public int idSig();
+	
 	public void Logg(String data);
 
 }
