@@ -1,14 +1,9 @@
 package com.hotel.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Entity
-@Table(name = "ciudad")
-public class CiudadEntity {
+
+public class CiudadModel {
 	
 	@Schema(description = "ID de los registros de la tabla de ciudades no recibe null", 
 	example = "1", required = true)
@@ -18,19 +13,17 @@ public class CiudadEntity {
 	example = "Bogota", required = true)
 	private String nombre;
 	
-	public CiudadEntity() {
+	public CiudadModel() {
 		this.id = 0;
 		this.nombre = "";
 	}
 	
-	public CiudadEntity(int id, String nombre) {
+	public CiudadModel(int id, String nombre) {
 		this.id = id;
 		this.nombre = nombre;
 	}
 	
 	
-	@Id
-	@Column(name = "ciu_id", columnDefinition = "int", unique=true)
 	public int getId() {
 		return id;
 	}
@@ -38,8 +31,7 @@ public class CiudadEntity {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	@Column(name = "ciu_nom", nullable = false, columnDefinition = "VARCHAR(50)")
+
 	public String getNombre() {
 		return nombre;
 	}

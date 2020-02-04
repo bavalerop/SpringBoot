@@ -4,6 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ciudad.entity.CiudadEntity;
 import com.ciudad.repository.ICiudadRepoCustom;
 import com.ciudad.service.ICiudadService;
@@ -22,17 +24,19 @@ public class CiudadServiceImpl implements ICiudadService{
 	private ICiudadRepo ciuRepo;
 	
 	@Override
-	public List<CiudadEntity> Todos() {
+	public List<CiudadEntity> Todos() throws Exception{
 		return (List<CiudadEntity>) ciuRepo.findAll();
 	}
 	
 	@Override
+	//Rollback en la BD
+     @Transactional(readOnly = true)
 	public List<CiudadEntity> GuardarBloque(List<CiudadEntity> ciudades) {
-//		return ciudades.stream().forEach(ciu -> {
-//		    ciu.setId(ciuCustom.idSig());
-//		    ciuRepo.save(ciu);
-//		});
-		return null;
+		ciudades.stream().forEach(ciu -> {
+		    ciu.setId(ciuCustom.idSig());
+		    ciuRepo.save(ciu);
+		});
+		return ciudades;
 		//ciuCustom.Logg(ciudades.toString()); 
 	}
 

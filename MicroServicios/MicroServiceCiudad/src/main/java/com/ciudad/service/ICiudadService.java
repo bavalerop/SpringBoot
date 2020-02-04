@@ -5,20 +5,20 @@ import com.ciudad.entity.CiudadEntity;
 
 public interface ICiudadService {
 	
-	public List<CiudadEntity> Todos();
+	public List<CiudadEntity> Todos() throws Exception;
 
-	public List<CiudadEntity> GuardarBloque(List<CiudadEntity> ciudades);
+	public List<CiudadEntity> GuardarBloque(List<CiudadEntity> ciudades) throws Exception;
 	
-	public CiudadEntity Guardar(CiudadEntity ciudad);
+	public CiudadEntity Guardar(CiudadEntity ciudad) throws Exception;
 	
-	public CiudadEntity Actualizar(CiudadEntity ciudad);
+	public CiudadEntity Actualizar(CiudadEntity ciudad) throws Exception;
 	
-	public List<CiudadEntity> BuscarNombre(String name);
+	public List<CiudadEntity> BuscarNombre(String name) throws Exception;
 	
-	public CiudadEntity BuscarId(int id);
+	public CiudadEntity BuscarId(int id) throws Exception;
 	
-	public int Borrar(int id);
+	public int Borrar(int id) throws Exception;
 	
-	public void Logg(String data);
+	public void Logg(String data) throws Exception;
 	
 }

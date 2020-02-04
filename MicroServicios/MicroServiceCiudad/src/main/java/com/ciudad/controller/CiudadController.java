@@ -34,7 +34,7 @@ public class CiudadController {
 	
 	
 		//GET
-		@Operation(summary = "Get Ciudad", description = "Muestra la lista de ciudades")
+		@Operation(summary = "Get Ciudades", description = "Muestra la lista de ciudades")
 		@ApiResponses({
 			@ApiResponse(responseCode = "200", description = "Respuesta Exitosa", content = @Content(array = @ArraySchema(schema = @Schema(implementation = CiudadEntity.class)))),
 			@ApiResponse(responseCode = "201", description = "Creado exitosamente", content = @Content),
@@ -45,15 +45,11 @@ public class CiudadController {
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
 		@ResponseBody 
-		@GetMapping(value = "/", produces = "application/json")
+		@GetMapping(value = "/getAll", produces = "application/json")
 		public ResponseEntity<?> list() throws Exception {
 			List<CiudadEntity> listCiudades = ciuServ.Todos();
 			if (listCiudades != null) {
-				if (listCiudades.size() > 0) {
-					return new ResponseEntity<>(listCiudades, HttpStatus.OK);
-				} else {
-					return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-				}
+				return new ResponseEntity<>(listCiudades, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 			}
@@ -70,7 +66,7 @@ public class CiudadController {
 			@ApiResponse(responseCode = "404", description = "No se encuentra el recurso que intentabas alcanzar", content = @Content),
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
-		@GetMapping(value = "/{name}", produces = "application/json")
+		@GetMapping(value = "/getByName/{name}", produces = "application/json")
 		@ResponseBody 
 		public ResponseEntity<?> findByName(
 				@Parameter(description="Nombre de la ciudad a buscar.")
@@ -78,12 +74,7 @@ public class CiudadController {
 				)  throws Exception {
 			List<CiudadEntity> listCiudades = ciuServ.BuscarNombre(name);
 			if (listCiudades != null) {
-				if (listCiudades.size() > 0) {
-					return new ResponseEntity<>(listCiudades, HttpStatus.OK);
-				} else {
-					
-					return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-				}
+				return new ResponseEntity<>(listCiudades, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 			}
@@ -101,7 +92,7 @@ public class CiudadController {
 			@ApiResponse(responseCode = "404", description = "No se encuentra el recurso que intentabas alcanzar", content = @Content),
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
-		@GetMapping(value = "/{id}", produces = "application/json")
+		@GetMapping(value = "/getById/{id}", produces = "application/json")
 		@ResponseBody 
 		public ResponseEntity<?> findByID(
 				@Parameter(description="ID de la ciudad a buscar.")
@@ -127,10 +118,15 @@ public class CiudadController {
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
 		@ResponseBody 
-		@PostMapping(value = "/", produces = "application/json")
+		@PostMapping(value = "/save", produces = "application/json")
 		public ResponseEntity<?> create(
 				@Parameter(description="Ciudad a guardar.", required=true)  @RequestBody CiudadEntity ciudad) throws Exception {
-			return new ResponseEntity<>(ciuServ.Guardar(ciudad),HttpStatus.CREATED);
+			try {
+				return new ResponseEntity<>(ciuServ.Guardar(ciudad), HttpStatus.OK);
+			}catch(Exception e) {
+				/*FALTA EL LOG (Cuando es bad request el front devuelve error img personalizado)*/
+				return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+			}
 		}
 		
 		//POST
@@ -145,10 +141,15 @@ public class CiudadController {
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
 		@ResponseBody 
-		@PostMapping(value = "/guardarList", produces = "application/json")
+		@PostMapping(value = "/saveList", produces = "application/json")
 		public ResponseEntity<?> create(
 				@Parameter(description="Ciudad a guardar.", required=true)  @RequestBody List<CiudadEntity> ciudades) throws Exception {
-			return new ResponseEntity<>(ciuServ.GuardarBloque(ciudades),HttpStatus.CREATED);
+			try {
+				return new ResponseEntity<>(ciuServ.GuardarBloque(ciudades),HttpStatus.CREATED);
+			}catch(Exception e) {
+				/*FALTA EL LOG (Cuando es bad request el front devuelve error img personalizado)*/
+				return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+			}
 		}
 		
 		//PUT
@@ -163,10 +164,15 @@ public class CiudadController {
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
 		@ResponseBody 
-		@PutMapping(value = "/", produces = "application/json")
+		@PutMapping(value = "/update", produces = "application/json")
 		public ResponseEntity<?> update(
 				@Parameter(description="Ciudad a Actualizar.", required=true)  @RequestBody CiudadEntity ciudad) throws Exception {
-				return new ResponseEntity<>(ciuServ.Actualizar(ciudad), HttpStatus.CREATED);	
+			CiudadEntity ciudadR = 	ciuServ.Actualizar(ciudad);
+			if (ciudadR != null) {
+				return new ResponseEntity<>(ciudadR, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+			}
 		}
 		
 		//DELETE
@@ -181,7 +187,7 @@ public class CiudadController {
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
 		@ResponseBody 
-		@DeleteMapping(value = "/{id}", produces = "application/json")
+		@DeleteMapping(value = "/delete/{id}", produces = "application/json")
 		public ResponseEntity<?> delete(
 				@Parameter(description="ID de la ciudad a eliminar.")
 				@PathVariable int id

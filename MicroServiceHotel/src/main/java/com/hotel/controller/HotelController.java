@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.hotel.entity.HotelEntity;
@@ -35,7 +34,7 @@ public class HotelController {
 	
 	
 		//GET
-		@Operation(summary = "Get Hotel", description = "Muestra la lista de Hoteles")
+		@Operation(summary = "Get Hoteles", description = "Muestra la lista de Hoteles")
 		@ApiResponses({
 			@ApiResponse(responseCode = "200", description = "Respuesta Exitosa", content = @Content(array = @ArraySchema(schema = @Schema(implementation = HotelEntity.class)))),
 			@ApiResponse(responseCode = "201", description = "Creado exitosamente", content = @Content),
@@ -46,7 +45,7 @@ public class HotelController {
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
 		@ResponseBody 
-		@GetMapping(value = "/", produces = "application/json")
+		@GetMapping(value = "/getAll", produces = "application/json")
 		public ResponseEntity<?> list() throws Exception {
 			List<HotelEntity> listHoteles = hotServ.Todos();
 			if (listHoteles != null) {
@@ -67,13 +66,13 @@ public class HotelController {
 			@ApiResponse(responseCode = "404", description = "No se encuentra el recurso que intentabas alcanzar", content = @Content),
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
-		@GetMapping(value = "/{name}", produces = "application/json")
+		@GetMapping(value = "/getByName/{name}", produces = "application/json")
 		@ResponseBody 
 		public ResponseEntity<?> findByName(
-				@Parameter(description="Nombre del hotel a buscar.") @RequestParam(required=true)
-				@PathVariable("name") String hot_name
+				@Parameter(description="Nombre del hotel a buscar.")
+				@PathVariable String name
 				)  throws Exception {
-			List<HotelEntity> listHoteles = hotServ.BuscarNombre(hot_name);
+			List<HotelEntity> listHoteles = hotServ.BuscarNombre(name);
 			if (listHoteles != null) {
 				return new ResponseEntity<>(listHoteles, HttpStatus.OK);
 			} else {
@@ -93,13 +92,13 @@ public class HotelController {
 			@ApiResponse(responseCode = "404", description = "No se encuentra el recurso que intentabas alcanzar", content = @Content),
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
-		@GetMapping(value = "/{id}", produces = "application/json")
+		@GetMapping(value = "/getById/{id}", produces = "application/json")
 		@ResponseBody 
 		public ResponseEntity<?> findByID(
-				@Parameter(description="ID del hotel a buscar.") @RequestParam(required=true)
-				@PathVariable("id") int hot_nit
+				@Parameter(description="ID del hotel a buscar.")
+				@PathVariable int id
 				)  throws Exception {
-			HotelEntity hotel = hotServ.BuscarId(hot_nit);
+			HotelEntity hotel = hotServ.BuscarId(id);
 			if (hotel != null) {
 				return new ResponseEntity<>(hotel, HttpStatus.OK);
 			} else {
@@ -119,14 +118,13 @@ public class HotelController {
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
 		@ResponseBody 
-		@PostMapping(value = "/", produces = "application/json")
+		@PostMapping(value = "/save", produces = "application/json")
 		public ResponseEntity<?> create(
-				@Parameter(description="Hotel a guardar.", required=true)  @RequestBody HotelEntity Hotel) throws Exception {
+				@Parameter(description="Hotel a guardar.", required=true)  @RequestBody HotelEntity hotel) throws Exception {
 			try {
-				HotelEntity Hotelr = hotServ.Guardar(Hotel);
-				return new ResponseEntity<>(Hotelr, HttpStatus.OK);
+				return new ResponseEntity<>(hotServ.Guardar(hotel), HttpStatus.CREATED);
 			}catch(Exception e) {
-				/*FALTA EL LOG (Cuando es bad request el fron devuelve error img personalizado)*/
+				/*FALTA EL LOG (Cuando es bad request el front devuelve error img personalizado)*/
 				return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 			}
 		}
@@ -143,14 +141,14 @@ public class HotelController {
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
 		@ResponseBody 
-		@PostMapping(value = "/guardarList", produces = "application/json")
+		@PostMapping(value = "/saveList", produces = "application/json")
 		public ResponseEntity<?> create(
-				@Parameter(description="Hoteles a guardar.", required=true)  @RequestBody List<HotelEntity> Hoteles) throws Exception {
-			List<HotelEntity> listHoteles = hotServ.GuardarBloque(Hoteles);
-			if (listHoteles != null) {
-				return new ResponseEntity<>(listHoteles, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+				@Parameter(description="Hoteles a guardar.", required=true)  @RequestBody List<HotelEntity> hoteles) throws Exception {
+			try {
+				return new ResponseEntity<>(hotServ.GuardarBloque(hoteles),HttpStatus.CREATED);
+			}catch(Exception e) {
+				/*FALTA EL LOG (Cuando es bad request el front devuelve error img personalizado)*/
+				return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 			}
 		}
 		
@@ -166,15 +164,16 @@ public class HotelController {
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
 		@ResponseBody 
-		@PutMapping(value = "/", produces = "application/json")
+		@PutMapping(value = "/update", produces = "application/json")
 		public ResponseEntity<?> update(
 				@Parameter(description="Hotel a Actualizar.", required=true)  @RequestBody HotelEntity Hotel) throws Exception {
-			HotelEntity Hotelr = hotServ.Actualizar(Hotel);
-			if (Hotelr != null) {
-				return new ResponseEntity<>(Hotelr, HttpStatus.OK);
-			} else {
-				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-			}	
+				HotelEntity Hotelr = hotServ.Actualizar(Hotel);
+				if (Hotelr != null) {
+					return new ResponseEntity<>(Hotelr, HttpStatus.OK);
+				} else {
+					return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+				}
+
 		}
 		
 		//DELETE
@@ -189,12 +188,12 @@ public class HotelController {
 			@ApiResponse(responseCode = "500", description = "Error de servidor", content = @Content)
 		})
 		@ResponseBody 
-		@DeleteMapping(value = "/{id}", produces = "application/json")
+		@DeleteMapping(value = "/delete/{id}", produces = "application/json")
 		public ResponseEntity<?> delete(
-				@Parameter(description="ID del hotel a eliminar.") @RequestParam(required=true)
-				@PathVariable("id") int hot_nit
+				@Parameter(description="ID del hotel a eliminar.")
+				@PathVariable int id
 				)throws Exception {
-			if(hotServ.Borrar(hot_nit)>0) {	
+			if(hotServ.Borrar(id)>0) {	
 				return new ResponseEntity<>(HttpStatus.OK);
 			}else {
 				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

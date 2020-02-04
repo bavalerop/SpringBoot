@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "servicio-ciudad", url="localhost:8082/api/ciudad") 
 public interface CiudadRest {
 	
-	@GetMapping("/{id}")
+	@GetMapping("/getById/{id}")
 	public ResponseEntity<?> findByID(@PathVariable int id);
 
 }

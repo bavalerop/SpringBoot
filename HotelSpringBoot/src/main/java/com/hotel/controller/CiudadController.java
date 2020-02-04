@@ -18,15 +18,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.hotel.entity.CiudadEntity;
 import com.hotel.service.CiudadService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+
 
 @RestController
-@RequestMapping("/api")
-@Api(value = "Controlador para las ciudades que podran tener los hoteles")
+@RequestMapping("/api/hotel")
+@Tag(name = "Hotel Controller", description = "Controlador para las ciudades que podran tener los hoteles")
 public class CiudadController {
 	
 	@Autowired

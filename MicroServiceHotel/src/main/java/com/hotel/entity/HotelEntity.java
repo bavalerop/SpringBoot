@@ -4,8 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import io.swagger.v3.oas.annotations.media.Schema;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "hotel")
@@ -31,10 +34,10 @@ public class HotelEntity {
 	example = "8", required = true)
 	private int numHab;
 	
-	private CiudadEntity ciudad;	
+	
+	private CiudadModel ciudad;
 
-	public HotelEntity(int id, String nombre, int ciu_id, String direccion, int numHab, CiudadEntity ciudad) {
-		super();
+	public HotelEntity(int id, String nombre, int ciu_id, String direccion, int numHab, CiudadModel ciudad) {
 		this.id = id;
 		this.nombre = nombre;
 		this.ciu_id = ciu_id;
@@ -42,13 +45,9 @@ public class HotelEntity {
 		this.numHab = numHab;
 		this.ciudad = ciudad;
 	}
-	
 
 	public HotelEntity() {
 	}
-
-	
-
 
 	@Id
 	@Column(name = "hot_nit", columnDefinition = "int", unique=true)
@@ -69,6 +68,14 @@ public class HotelEntity {
 		this.nombre = nombre;
 	}
 
+	@Column(name = "hot_ciu", nullable = false, columnDefinition = "int")
+	public int getCiu_id() {
+		return ciu_id;
+	}
+
+	public void setCiu_id(int ciu_id) {
+		this.ciu_id = ciu_id;
+	}
 
 	@Column(name = "hot_dir", nullable = false, columnDefinition = "VARCHAR(80)")
 	public String getDireccion() {
@@ -90,24 +97,24 @@ public class HotelEntity {
 		this.numHab = numHab;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(unique = true)
-	public CiudadEntity getCiudad() {
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@Transient
+	public CiudadModel getCiudad() {
 		return ciudad;
 	}
 
 
-	public void setCiudad(CiudadEntity ciudad) {
+	public void setCiudad(CiudadModel ciudad) {
 		this.ciudad = ciudad;
 	}
 
+	
 
 	@Override
 	public String toString() {
 		return "HotelEntity [id=" + id + ", nombre=" + nombre + ", ciu_id=" + ciu_id + ", direccion=" + direccion
 				+ ", numHab=" + numHab + ", ciudad=" + ciudad + "]";
 	}
-
 	
 
 }
